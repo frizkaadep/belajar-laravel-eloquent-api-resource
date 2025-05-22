@@ -31,9 +31,9 @@ return new class extends Migration
 
         /**
             Perbandingan Opsi
-            Aksi	onDelete/onUpdate	Efek
-            cascade	Menghapus/memperbarui	Data terkait ikut dihapus atau diperbarui secara otomatis.
-            restrict	Mencegah	Operasi dihentikan jika ada data terkait.
+            Aksi	    onDelete/onUpdate       Efek
+            cascade	    Menghapus/memperbarui	Data terkait ikut dihapus atau diperbarui secara otomatis.
+            restrict	Mencegah	            Operasi dihentikan jika ada data terkait.
             set null	Menghapus/memperbarui	Foreign key di tabel anak diatur menjadi NULL.
             no action	Tidak ada aksi	Operasi dihentikan jika melanggar aturan referensial.
          */
