@@ -31,11 +31,14 @@ Route::get('/categories-custom', function () {
 
 Route::get('/products/{id}', function ($id) {
     $product = Product::find($id);
-    return new ProductResource($product);
+    $product->load('category');
+    return (new ProductResource($product))
+        ->response()
+        ->header("X-Powered-By", "Frizka Ade");
 });
 
 Route::get('/products', function () {
-    $products = Product::all();
+    $products = Product::with('category')->get();
     return new ProductCollection($products);
 });
 

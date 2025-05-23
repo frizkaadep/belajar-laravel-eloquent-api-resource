@@ -19,6 +19,7 @@ class ProductTest extends TestCase
 
         $this->get("/api/products/$product->id")
             ->assertStatus(200)
+            ->assertHeader("X-Powered-By", "Frizka Ade")
             ->assertJson([
                 'value' => [
                     'id' => $product->id,
@@ -28,6 +29,7 @@ class ProductTest extends TestCase
                         'name' => $product->category->name,
                     ],
                     'price' => $product->price,
+                    'is_expensive' => $product->price > 500,
                     'created_at' => $product->created_at->toJson(),
                     'updated_at' => $product->updated_at->toJson(),
                 ]
@@ -39,12 +41,13 @@ class ProductTest extends TestCase
         $this->seed([CategorySeeder::class, ProductSeeder::class]);
 
         $response = $this->get("/api/products")
-            ->assertStatus(200);
+            ->assertStatus(200)
+            ->assertHeader("X-Powered-By", "Frizka Ade");
 
         $data = $response->json("data");
         $names = collect($data)->pluck("name")->all();
 
-        for ($i=1; $i < 6; $i++) {
+        for ($i=0; $i < 5; $i++) {
             self::assertContains("Product $i of ATM", $names);
         }
         for ($i=1; $i < 6; $i++) {
